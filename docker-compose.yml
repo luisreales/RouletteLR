@@ -1,0 +1,18 @@
+version: "2"
+
+services:
+  redistestdb:
+    container_name: "redistestdb"
+    image: "redis:latest"
+    ports:
+      - "63799:6379"
+    tty: true
+  rouletteapi:
+    depends_on:
+      - "redistestdb"
+    build: .
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    environment:
+      - ASPNETCORE_URLS=https://+;http://+;
